@@ -4,7 +4,7 @@
 #include <string.h>
 #include <signal.h>
 
-//Affiche str et demande un nombre entre min et max
+//Affiche str et demande un nombre entre min et maxasdad
 int getNbFromUser(char* str, int min, int max);
 void transaction(int accountNo, int operation, int amount);
 
