@@ -42,7 +42,7 @@ void transaction(int accountNo, int operation, int amount)
   sleep(10);
 
   //TODO UNLOCK LIGNE ACCOUNT
-
+  sleep(1);
   //Kill le processus apres execution de transaction
   write(1,"Child dead\n", 11);
   kill(getpid(), SIGTERM);      
