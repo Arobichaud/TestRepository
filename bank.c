@@ -38,21 +38,31 @@ int main(int argc, char** argv)
 void transaction(int accountNo, int operation)
 {
   int file;
-  int amount = 0;
-  
+  int amountForTransaction = 0;
+  int amountFromAccount = 0;
+
   if(operation == 1 || operation == 2)
   {
-    amount = getNbFromUser("De quel montant entier?\n", 0,9999);
+    amountForTransaction = getNbFromUser("De quel montant entier?\n", 0,9999);
     file = open("accounts.txt", O_RDWR);
-    lseek(file, BUFFER*accountNo, SEEK_SET);
+    lseek(file, (BUFFER+1)*accountNo, SEEK_SET);
     if(lockf(file, F_TLOCK, BUFFER) == -1)
     {
       printf("Erreur compte no %d deja en utilisation\nTRANSACTION ANNULEE\n", accountNo);
       close(file);
       kill(getpid(), SIGTERM);
     }
-    amount++;
-    //TODO RETRAIT OU DEPOT MONTANT
+    amountFromAccount++;
+    if (operation == 1)
+    {
+      amountForTransaction *= -1;
+    }
+
+    //TODO getAmountFromAccount
+    //
+    //TODO doTransactionANDValidation
+    //
+    //TODO updateAccountInformation    
    
    lockf(file, F_ULOCK, BUFFER);
   }
