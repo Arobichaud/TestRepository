@@ -8,10 +8,12 @@
 #include <sys/wait.h>
 
 #define BUFFER 17
-
+#define AMOUNTBUFFER 5
 //Affiche str et demande un nombre entre min et max!
 int getNbFromUser(char* str, int min, int max);
 void transaction(int accountNo, int operation);
+int getAmountFromAccount(int file);
+
 
 int main(int argc, char** argv)
 {
@@ -40,7 +42,7 @@ void transaction(int accountNo, int operation)
   int file;
   int amountForTransaction = 0;
   int amountFromAccount = 0;
-
+  int transactionResult = 0;
   if(operation == 1 || operation == 2)
   {
     amountForTransaction = getNbFromUser("De quel montant entier?\n", 0,9999);
@@ -58,13 +60,11 @@ void transaction(int accountNo, int operation)
       amountForTransaction *= -1;
     }
 
-    //TODO getAmountFromAccount
+    amountFromAccount = getAmountFromAccount(file);
     //
-    //TODO doTransactionANDValidation
-    //
+    //transactionResult = doTransactionAndValidation(&amountFromAccount, amountForTransaction);
     //TODO updateAccountInformation    
-   
-   lockf(file, F_ULOCK, BUFFER);
+    lockf(file, F_ULOCK, BUFFER);
   }
   else
   {
@@ -81,7 +81,18 @@ void transaction(int accountNo, int operation)
   kill(getpid(), SIGTERM);      
 }
 
-int getNbFromUser(char* str, int min, int max)
+int getAmountFromAccount (int file)
+{
+  char amountString[AMOUNTBUFFER];
+  
+  lseek(file, (BUFFER-AMOUNTBUFFER), SEEK_CUR);
+  read(file, amountString, AMOUNTBUFFER);
+  amountString[AMOUNTBUFFER] = 0;
+
+  return atoi(amountString);
+}
+
+int getNbFromUser (char* str, int min, int max)
 {
   int nb = 0;
   do
