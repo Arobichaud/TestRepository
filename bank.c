@@ -13,7 +13,7 @@
 int getNbFromUser(char* str, int min, int max);
 void transaction(int accountNo, int operation);
 int getAmountFromAccount(int file);
-
+int doTransactionAndValidation(int* amountFromAccount, int amountForTransaction);
 
 int main(int argc, char** argv)
 {
@@ -42,7 +42,7 @@ void transaction(int accountNo, int operation)
   int file;
   int amountForTransaction = 0;
   int amountFromAccount = 0;
-  int transactionResult = 0;
+  
   if(operation == 1 || operation == 2)
   {
     amountForTransaction = getNbFromUser("De quel montant entier?\n", 0,9999);
@@ -61,8 +61,17 @@ void transaction(int accountNo, int operation)
     }
 
     amountFromAccount = getAmountFromAccount(file);
-    //
-    //transactionResult = doTransactionAndValidation(&amountFromAccount, amountForTransaction);
+   
+    if (doTransactionAndValidation(&amountFromAccount, amountForTransaction))
+    {
+      printf("Valide\n"); 
+    }
+    else
+    {
+      printf("Invalide - Transaction annulee\n");
+    }
+    
+
     //TODO updateAccountInformation    
     lockf(file, F_ULOCK, BUFFER);
   }
@@ -90,6 +99,18 @@ int getAmountFromAccount (int file)
   amountString[AMOUNTBUFFER] = 0;
 
   return atoi(amountString);
+}
+
+int doTransactionAndValidation(int* amountFromAccount, int amountForTransaction)
+{
+  *amountFromAccount += amountForTransaction;
+  
+  if (*amountFromAccount < 0 || *amountFromAccount > 9999)
+  {
+    return 0;
+  }
+
+  return 1;
 }
 
 int getNbFromUser (char* str, int min, int max)
