@@ -46,7 +46,7 @@ void transaction(int accountNo, int operation)
   
   if(operation == 1 || operation == 2)
   {
-    amountForTransaction = getNbFromUser("De quel montant entier?\n", 0,9999);
+
     file = open("accounts.txt", O_RDWR);
     lseek(file, (BUFFER+1)*accountNo, SEEK_SET);
     if(lockf(file, F_TLOCK, BUFFER) == -1)
@@ -55,7 +55,8 @@ void transaction(int accountNo, int operation)
       close(file);
       kill(getpid(), SIGTERM);
     }
-    amountFromAccount++;
+
+    amountForTransaction = getNbFromUser("De quel montant entier?\n", 0,9999);
     if (operation == 1)
     {
       amountForTransaction *= -1;
@@ -65,8 +66,9 @@ void transaction(int accountNo, int operation)
    
     if (doTransactionAndValidation(&amountFromAccount, amountForTransaction))
     {
-      printf("Valide\n");
       updateAccountInformation(file, amountFromAccount);
+      printf("Transaction accepté, solde restant: %d\n", amountFromAccount);
+  
     }
     else
     {
@@ -74,7 +76,13 @@ void transaction(int accountNo, int operation)
     }
     
 
-    //TODO updateAccountInformation    
+    printf("Entrez C pour continuer\n");
+    char c = 'a';
+    while(!(c == 'c' || c == 'C'))
+    {
+    	scanf("%c", &c);
+    }
+
     lockf(file, F_ULOCK, BUFFER);
   }
   else

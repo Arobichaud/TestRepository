@@ -65,14 +65,22 @@ void transaction(int accountNo, int operation)
    
     if (doTransactionAndValidation(&amountFromAccount, amountForTransaction))
     {
-      printf("Valide\n");
       updateAccountInformation(file, amountFromAccount);
+      printf("Transaction accepté, solde restant: %d\n", amountFromAccount);
+  
     }
     else
     {
       printf("Invalide - Transaction annulee\n");
     }
     
+
+    printf("Entrez C pour continuer\n");
+    char c = 'a';
+    while(!(c == 'c' || c == 'C'))
+    {
+    	scanf("%c", &c);
+    }
 
     //TODO updateAccountInformation    
     lockf(file, F_ULOCK, BUFFER);
@@ -117,10 +125,8 @@ int doTransactionAndValidation(int* amountFromAccount, int amountForTransaction)
 
 void updateAccountInformation(int file, int finalAmount)
 {
-  printf("finalAmount = %d\n", finalAmount);
   char finalAmountString[AMOUNTBUFFER];
   sprintf(finalAmountString, "%4d", finalAmount);
-  printf("%s\n", finalAmountString);
   lseek(file, -AMOUNTBUFFER, SEEK_CUR);
   write(file, finalAmountString, (AMOUNTBUFFER-1));
 }
