@@ -1,7 +1,7 @@
 # INF3172-TP1
 
 ## Compilation
-* lancer la commande: make
+* Lancer la commande: make
 
 ## Execution
 * Pour lancer le programme, utliser la commande: ./tp1
