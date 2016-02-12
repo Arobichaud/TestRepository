@@ -9,7 +9,8 @@
 
 #define BUFFER 17
 #define AMOUNTBUFFER 5
-//Affiche str et demande un nombre entre min et max!
+
+//Affiche str et demande un nombre entre min et max
 int getNbFromUser(char* str, int min, int max);
 void transaction(int accountNo, int operation);
 int getAmountFromAccount(int file);
