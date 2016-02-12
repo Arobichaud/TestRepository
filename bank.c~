@@ -117,8 +117,10 @@ int doTransactionAndValidation(int* amountFromAccount, int amountForTransaction)
 
 void updateAccountInformation(int file, int finalAmount)
 {
+  printf("finalAmount = %d\n", finalAmount);
   char finalAmountString[AMOUNTBUFFER];
   sprintf(finalAmountString, "%4d", finalAmount);
+  printf("%s\n", finalAmountString);
   lseek(file, -AMOUNTBUFFER, SEEK_CUR);
   write(file, finalAmountString, (AMOUNTBUFFER-1));
 }
