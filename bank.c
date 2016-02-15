@@ -1,3 +1,15 @@
+/*
+*  Simulateur d'un système bancaire,
+*  utilisant fork() lockf() et lseek()
+*
+*  TP1 - INF3172
+*  Groupe 10
+*
+*  Étudiants:              Code Permanents:
+*        Antoine Trottier-Delorme    TROA07109100
+*        Anthony Robichaud           ROBA31038907
+*/
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -12,8 +24,11 @@
 
 //Affiche str et demande un nombre entre min et max
 int getNbFromUser(char* str, int min, int max);
+//
 void transaction(int accountNo, int operation);
+//Lis le montant d'argent dans le compte client
 int getAmountFromAccount(int file);
+
 int doTransactionAndValidation(int* amountFromAccount, int amountForTransaction);
 void updateAccountInformation(int file, int finalAmount);
 
