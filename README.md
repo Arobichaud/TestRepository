@@ -1,4 +1,7 @@
 # INF3172-TP1
+* Étudiants:
+* Antoine Trottier-Delorme TROA07109100
+* Anthony Robichaud ROBA31038907
 
 ## Compilation
 * Utiliser la commande: make
