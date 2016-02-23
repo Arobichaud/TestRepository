@@ -4,11 +4,12 @@
 * Anthony Robichaud ROBA31038907
 
 ## Compilation
-* Utiliser la commande: make
+* Dans une console ouverte au niveau du répertoire des fichiers sources, utiliser la commande: make
 
 ## Execution
 * Pour lancer le programme, utliser la commande: ./tp1
-* Suivre les indications à l'écran
+* Suivre les indications à l'écran (Sélection du compte et faire la transaction désirée)
+
 
 ## Limites du programme
 * Ce programme fonctionne avec le fichier Accounts.txt. Le fichier doit être dans le même répertoire que l'exécutable.
